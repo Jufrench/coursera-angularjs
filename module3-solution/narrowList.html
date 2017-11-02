@@ -3,7 +3,8 @@
   <br  />
   <br  />
   <li ng-repeat="x in ctrl.found">
-    {{ x.name }}
+    <b>{{ x.name }}</b> ({{ x.short_name }}) <br />
+    {{ x.description }}
     <button ng-click="remove($index)" class="btn btn-danger" type="button" name="button">Don't want this one!</button>
   </li>
 </ul>
