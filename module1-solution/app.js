@@ -20,15 +20,6 @@ function LunchCheckController($scope) {
       $scope.display = "Too Much!";
     }
   };
-
-  // $scope.redBorder = () => {
-  //   if ($scope.display === "Please enter data first") {
-  //     {'border-color': 'red'};
-  //   }
-  // }
 }
-
-
-
 
 })();

@@ -1,0 +1,9 @@
+<ul>
+  <br  />
+  <br  />
+  <br  />
+  <li ng-repeat="x in ctrl.found">
+    {{ x.name }}
+    <button ng-click="remove($index)" type="button" name="button">Don't want this one!</button>
+  </li>
+</ul>

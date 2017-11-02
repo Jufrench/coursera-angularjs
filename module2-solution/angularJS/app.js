@@ -41,26 +41,11 @@ function ShoppingListCheckOffService() {
 
   // List of items to buy
   var toBuy = [
-    {
-      name: "Cumin",
-      quantity: 10
-    },
-    {
-      name: "Berbere",
-      quantity: 10
-    },
-    {
-      name: "Cajun Spice",
-      quantity: 10
-    },
-    {
-      name: "Saffron",
-      quantity: 10
-    },
-    {
-      name: "Jerk Spice",
-      quantity: 10
-    }
+    {name: "Cumin", quantity: 10},
+    {name: "Berbere", quantity: 10},
+    {name: "Cajun Spice", quantity: 10},
+    {name: "Saffron", quantity: 10},
+    {name: "Jerk Spice", quantity: 10}
   ];
 
   // List of items already bought
