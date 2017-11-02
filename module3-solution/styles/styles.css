@@ -50,3 +50,9 @@ input[type="text"] {
     transform: rotate(360deg);
   }
 }
+
+#nothingFound {
+  margin-left: 5px;
+  clear: both;
+  color: red;
+}

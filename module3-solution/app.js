@@ -8,8 +8,8 @@ angular.module('MenuApp', [])
 .directive('foundItems', FoundItemsDirective);
 
 
-// ======== DIRECTIVE =================
-// ====================================
+// ======== DIRECTIVE ==================
+// =====================================
 function FoundItemsDirective() {
   var ddo = {
     templateUrl: 'narrowList.html',
@@ -18,20 +18,39 @@ function FoundItemsDirective() {
     },
     controller: FoundItemsDirectiveController,
     controllerAs: 'ctrl',
-    bindToController: true
+    bindToController: true,
+    onRemove: '&'
   };
 
   return ddo;
 }
 
+// ===== DIRECTIVE CONTROLLER =========
+// ====================================
+FoundItemsDirectiveController.inject = ['$scope', 'MenuSearchService'];
 function FoundItemsDirectiveController($scope) {
+  let direct = this;
 
-  $scope.remove = (index) => {
-    this.found.splice(index, 1);
+  $scope.remove = index => {
+    direct.found.splice(index, 1);
   };
+
+  // $scope.nothingFound =
+
+  // $scope.this.nothingFound = searchTerm => {
+  //   let promise = MenuSearchService.getMatchedMenuItems();
+  //   promise.then(response => {
+  //     if (searchTerm === "") {
+  //       console.log('yo');
+  //     }
+  //
+  //     return searchTerm;
+  //   });
+  // };
+
 }
 
-// ======== Narrow CONTROLLER =========
+// ===== Narrow CONTROLLER ============
 // ====================================
 NarrowItDownController.$inject = ['$scope', 'MenuSearchService'];
 function NarrowItDownController($scope, MenuSearchService) {
@@ -41,12 +60,29 @@ function NarrowItDownController($scope, MenuSearchService) {
   //var promise = MenuSearchService.getMatchedMenuItems();
 
   $scope.narrow.search = searchTerm => {
-    //return MenuSearchService.getMatchedMenuItems(searchTerm);
-    MenuSearchService.getMatchedMenuItems(searchTerm).then((response) => {
+    MenuSearchService.getMatchedMenuItems(searchTerm).then(response => {
       $scope.narrow.found = response;
       console.log(response);
-    })
+      console.log(searchTerm);
+    });
   }
+
+  $scope.narrow.empty = searchTerm => {
+    MenuSearchService.getMatchedMenuItems(searchTerm).then(response => {
+      if (response !== []) {
+        return true;
+      }
+    });
+  };
+  // $scope.narrow.empty = searchTerm => {
+  //   //return MenuSearchService.getMatchedMenuItems(searchTerm);
+  //   MenuSearchService.getMatchedMenuItems(searchTerm).then(response => {
+  //     if (searchTerm === "") {
+  //       return false;
+  //     }
+  //   });
+  // }
+
 
 }
 // ======== SERVICE ===================
@@ -61,16 +97,12 @@ MenuSearchService.$inject = ['$http', 'ApiPath'];
         url: (ApiPath + "/menu_items.json")
       })
       .then(response => {
+        if (searchTerm.length === 0) {
+          return [];
+        }
         const menuItems = response.data.menu_items;
         const found = menuItems.filter(menuItem => menuItem.name.includes(searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1)));
-        // for (let i = 0; i < menuItems.length; i++) {
-        //   if(menuItems[i].name.includes(searchTerm)) {
-        //     found.push(menuItems[i]);
-        //   }
-        // }
 
-        console.log(found);
-        console.log(searchTerm);
         return found;
 
       })
@@ -80,6 +112,10 @@ MenuSearchService.$inject = ['$http', 'ApiPath'];
 
       return response;
     };
+
+
+
+
   }
 
 })();

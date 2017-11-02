@@ -18,15 +18,13 @@
     <div class="form-group narrow-button">
       <button ng-click="narrow.search(searchTerm)" class="btn btn-primary">Narrow It Down For Me!</button>
     </div>
-
-      <!-- <h4 style="display: inline-block">Nothing Found</h4> -->
-
+    <div ng-if="narrow.found.length === 0" id="nothingFound">
+      <h4>Nothing found</h4>
+    </div>
 
     <!-- found-items should be implemented as a component -->
     <found-items found="narrow.found"></found-items>
   </div>
-
-<!-- on-remove="...." -->
 
 </body>
 </html>
